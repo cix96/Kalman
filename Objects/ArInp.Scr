@@ -1,0 +1,16 @@
+--create .\Objects\Hall_sensors_STM.lib
+.\objects\main.o
+.\objects\gpio.o
+.\objects\croutine.o
+.\objects\event_groups.o
+.\objects\list.o
+.\objects\queue.o
+.\objects\stream_buffer.o
+.\objects\tasks.o
+.\objects\timers.o
+.\objects\port.o
+.\objects\heap_2.o
+.\objects\system_stm32f4xx.o
+.\objects\startup_stm32f40_41xxx.o
+.\objects\stm32f4_discovery.o
+.\STM_Peripheral_Lib.lib

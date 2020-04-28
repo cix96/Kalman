@@ -1,0 +1,20 @@
+--cpu=Cortex-M4.fp.sp
+".\objects\main.o"
+".\objects\hall_timer_config.o"
+".\objects\kalman.o"
+".\objects\croutine.o"
+".\objects\event_groups.o"
+".\objects\list.o"
+".\objects\queue.o"
+".\objects\stream_buffer.o"
+".\objects\tasks.o"
+".\objects\timers.o"
+".\objects\port.o"
+".\objects\heap_2.o"
+".\objects\system_stm32f4xx.o"
+".\objects\startup_stm32f40_41xxx.o"
+".\objects\stm32f4_discovery.o"
+".\STM_Peripheral_Lib.lib"
+--ro-base 0x08000000 --entry 0x08000000 --rw-base 0x20000000 --entry Reset_Handler --first __Vectors --strict --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list ".\Listings\Hall_sensors_STM.map" -o .\Objects\Hall_sensors_STM.axf
