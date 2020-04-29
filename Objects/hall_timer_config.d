@@ -39,3 +39,4 @@
 .\objects\hall_timer_config.o: .\kalman.h
 .\objects\hall_timer_config.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 .\objects\hall_timer_config.o: .\HALL_timer_config.h
+.\objects\hall_timer_config.o: .\usart.h

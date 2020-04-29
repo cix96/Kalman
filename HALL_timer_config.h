@@ -9,13 +9,12 @@
 #include <stm32f4xx_tim.h> 						// timer
 #include <stm32f4_discovery.h>
 #include <kalman.h>
+#include <usart.h>
 #include <stdio.h>
 
 void timer4_init(void);
 void TIM4_IRQHandler(void);
-double getSpeed(void);
-double getTime(void);
-
-double w;
+float getSpeed(void);
+uint32_t getTime(void);
 
 #endif

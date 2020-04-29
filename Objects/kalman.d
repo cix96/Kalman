@@ -39,3 +39,4 @@
 .\objects\kalman.o: .\stm32f4_discovery.h
 .\objects\kalman.o: .\HALL_timer_config.h
 .\objects\kalman.o: .\kalman.h
+.\objects\kalman.o: .\usart.h

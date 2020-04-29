@@ -388,14 +388,19 @@
               <FilePath>.\main.h</FilePath>
             </File>
             <File>
-              <FileName>HALL_timer_config.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\HALL_timer_config.h</FilePath>
-            </File>
-            <File>
               <FileName>kalman.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\kalman.h</FilePath>
+            </File>
+            <File>
+              <FileName>usart.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\usart.h</FilePath>
+            </File>
+            <File>
+              <FileName>HALL_timer_config.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\HALL_timer_config.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -416,6 +421,11 @@
               <FileName>kalman.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\kalman.c</FilePath>
+            </File>
+            <File>
+              <FileName>usart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\usart.c</FilePath>
             </File>
           </Files>
         </Group>

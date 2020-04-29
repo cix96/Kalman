@@ -2,6 +2,7 @@
 ".\objects\main.o"
 ".\objects\hall_timer_config.o"
 ".\objects\kalman.o"
+".\objects\usart.o"
 ".\objects\croutine.o"
 ".\objects\event_groups.o"
 ".\objects\list.o"

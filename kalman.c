@@ -17,11 +17,11 @@ void kalman_init(kalman *p_kalman) {
 
 }
 
-double kalman_angle_calc(kalman *p_kalman, double speed_mea, double dt) {
+float kalman_angle_calc(kalman *p_kalman, float speed_mea, uint32_t dt) {
 	    
-	    double S; 				// nazivnik za racunanje kalman gaina
-			double K[2]; 			// kalman gain
-			double X[2]; 			// Predikcija
+	    float S; 				// nazivnik za racunanje kalman gaina
+			float K[2]; 			// kalman gain
+			float X[2]; 			// Predikcija
 	
 			// update
 			// X(n) = A*X(n-1); A = [ 1 dt; 0 1]; X = [ theta; w]
