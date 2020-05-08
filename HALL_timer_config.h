@@ -8,13 +8,19 @@
 #include <stm32f4xx_rcc.h> 						// reset anc clocking
 #include <stm32f4xx_tim.h> 						// timer
 #include <stm32f4_discovery.h>
-#include <kalman.h>
-#include <usart.h>
+#include <main.h>
 #include <stdio.h>
+
+typedef struct {
+	uint16_t HALL1;
+	uint16_t HALL2;
+	uint16_t HALL3;
+	double time;
+} HallSensors;
 
 void timer4_init(void);
 void TIM4_IRQHandler(void);
-float getSpeed(void);
-uint32_t getTime(void);
+double getSpeed(void);
+double getTime(void);
 
 #endif

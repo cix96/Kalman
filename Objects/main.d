@@ -37,9 +37,10 @@
 .\objects\main.o: Lib\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_fsmc.h
 .\objects\main.o: .\stm32f4_discovery.h
 .\objects\main.o: .\HALL_timer_config.h
-.\objects\main.o: .\kalman.h
+.\objects\main.o: .\main.h
 .\objects\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
-.\objects\main.o: .\HALL_timer_config.h
+.\objects\main.o: .\kalman.h
+.\objects\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 .\objects\main.o: .\usart.h
 .\objects\main.o: FreeRTOS\include\FreeRTOS.h
 .\objects\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
@@ -51,5 +52,5 @@
 .\objects\main.o: FreeRTOS\include\mpu_wrappers.h
 .\objects\main.o: FreeRTOS\include\task.h
 .\objects\main.o: FreeRTOS\include\list.h
-.\objects\main.o: FreeRTOS\include\queue.h
 .\objects\main.o: FreeRTOS\include\semphr.h
+.\objects\main.o: FreeRTOS\include\queue.h

@@ -2,8 +2,6 @@
 
 #include <usart.h>
 
-
-
 // RX FIFO buffer
 char RX_BUFFER[BUFSIZE];
 int RX_BUFFER_HEAD, RX_BUFFER_TAIL;
@@ -53,7 +51,7 @@ void USART2_Init(void){
 
 	// prepare NVIC to receive USART1 IRQs
 	NVIC_InitStructure.NVIC_IRQChannel = USART2_IRQn; 																// configure USART2 interrupts
-	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;													// max. priority
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 3;													// max. priority
 	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0; 																// max. priority
 	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE; 																	// enable USART1 interrupt in NVIC
 	NVIC_Init(&NVIC_InitStructure); 																									// set NVIC for USART1 IRQ

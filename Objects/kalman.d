@@ -36,7 +36,5 @@
 .\objects\kalman.o: Lib\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_dcmi.h
 .\objects\kalman.o: Lib\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_fsmc.h
 .\objects\kalman.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\objects\kalman.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 .\objects\kalman.o: .\stm32f4_discovery.h
-.\objects\kalman.o: .\HALL_timer_config.h
-.\objects\kalman.o: .\kalman.h
-.\objects\kalman.o: .\usart.h

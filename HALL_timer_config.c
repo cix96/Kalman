@@ -1,8 +1,6 @@
 /* INICIJALIZACIJA TIMERA ZA HALL SENZORE */
 
 #include <HALL_timer_config.h>
-#include <stm32f4_discovery.h>
-
 
 void timer4_init(void){
 
@@ -11,27 +9,27 @@ void timer4_init(void){
 		TIM_ICInitTypeDef 					TIM_ICInitStructure;
 		NVIC_InitTypeDef 						NVIC_InitStructure;
 	
-		// enable pin clock, GPIOB pin 6,7,8 za timer4
-		RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB, ENABLE);	 
-
-		GPIO_PinAFConfig(GPIOB, GPIO_PinSource6, GPIO_AF_TIM4); 									// Connect TIM4 pin (PB6) to AF2 
-		GPIO_PinAFConfig(GPIOB, GPIO_PinSource7, GPIO_AF_TIM4); 									// Connect TIM4 pin (PB7) to AF2 
-		GPIO_PinAFConfig(GPIOB, GPIO_PinSource8, GPIO_AF_TIM4); 									// Connect TIM4 pin (PB8) to AF2 
+		// enable pin clock, GPIOD pin 6,7,8 za timer4
+		RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOD, ENABLE);	 
 		
-		GPIO_InitStruct.GPIO_Pin 		= GPIO_Pin_6 | GPIO_Pin_7 | GPIO_Pin_8 ;			// HALL1 / HALL2 / HALL3
+		GPIO_InitStruct.GPIO_Pin 		= GPIO_Pin_12 | GPIO_Pin_13 | GPIO_Pin_14 ;			// HALL1 / HALL2 / HALL3
 		GPIO_InitStruct.GPIO_Mode 	= GPIO_Mode_AF;																// ALTERNATE FUNCTION FOR TIIMER
 		GPIO_InitStruct.GPIO_Speed 	= GPIO_Speed_50MHz;
 		GPIO_InitStruct.GPIO_OType 	= GPIO_OType_PP;
 		GPIO_InitStruct.GPIO_PuPd 	= GPIO_PuPd_NOPULL;	
-		GPIO_Init(GPIOB, &GPIO_InitStruct);																				// postavljanje odabranih pinova
-		
+		GPIO_Init(GPIOD, &GPIO_InitStruct);																				// postavljanje odabranih pinova
+
+		GPIO_PinAFConfig(GPIOD, GPIO_PinSource12, GPIO_AF_TIM4); 									// Connect TIM4 pin (PB6) to AF2 
+		GPIO_PinAFConfig(GPIOD, GPIO_PinSource13, GPIO_AF_TIM4); 									// Connect TIM4 pin (PB7) to AF2 
+		GPIO_PinAFConfig(GPIOD, GPIO_PinSource14, GPIO_AF_TIM4); 									// Connect TIM4 pin (PB8) to AF2 
+	
 		// enable timer clock, TIMER4 
 		RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM4, ENABLE);
 	
 		// inicijalizacija timer4 time base strukture
-		TIM_TimeBaseStructure.TIM_Prescaler = 999; 																// 84MHz/(1/3.5ms)= (psc+1)*(arr+1)
+		TIM_TimeBaseStructure.TIM_Prescaler = 83; 																// 84MHz/(1/3.5ms)= (psc+1)*(arr+1)
 		TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up; 							// counts from 0 to autoreload, and then back to 0
-		TIM_TimeBaseStructure.TIM_Period = 293; 
+		TIM_TimeBaseStructure.TIM_Period = 65535; 
 		TIM_TimeBaseStructure.TIM_ClockDivision = 0; 
 		TIM_TimeBaseStructure.TIM_RepetitionCounter = 0; 
 		TIM_TimeBaseInit(TIM4, &TIM_TimeBaseStructure); 
@@ -64,24 +62,12 @@ void timer4_init(void){
 		TIM_ICInitStructure.TIM_ICPrescaler = TIM_ICPSC_DIV1;										 		// Div:1, capture is done every edge 
 		TIM_ICInitStructure.TIM_ICFilter = 0xF; 																		// noise filter: 1111 
 		
-		TIM_ICInitStructure.TIM_Channel = TIM_Channel_2; 
-		TIM_ICInitStructure.TIM_ICPolarity = TIM_ICPolarity_BothEdge; 							// na rastuci i padajuci brid
-		TIM_ICInitStructure.TIM_ICSelection = TIM_ICSelection_TRC;									// listen to T1F, the  HallSensorEvent 
-		TIM_ICInitStructure.TIM_ICPrescaler = TIM_ICPSC_DIV1;										 		// Div:1, capture is done every edge 
-		TIM_ICInitStructure.TIM_ICFilter = 0xF; 																		// noise filter: 1111 
-		
-		TIM_ICInitStructure.TIM_Channel = TIM_Channel_3; 
-		TIM_ICInitStructure.TIM_ICPolarity = TIM_ICPolarity_BothEdge; 							// na rastuci i padajuci brid
-		TIM_ICInitStructure.TIM_ICSelection = TIM_ICSelection_TRC;									// listen to T1F, the  HallSensorEvent 
-		TIM_ICInitStructure.TIM_ICPrescaler = TIM_ICPSC_DIV1;										 		// Div:1, capture is done every edge 
-		TIM_ICInitStructure.TIM_ICFilter = 0xF; 																		// noise filter: 1111 
-		
 		TIM_ICInit(TIM4, &TIM_ICInitStructure);
 		
 		
 		// enable the interrupt for timer4
 		// TIM capture compare 1 interrupt source
-		TIM_ITConfig(TIM4, TIM_IT_CC1|TIM_IT_CC2|TIM_IT_CC3, ENABLE); 							
+		TIM_ITConfig(TIM4, TIM_IT_CC1, ENABLE); 							
 		
 		
 		// interrupt configuration
@@ -94,61 +80,53 @@ void timer4_init(void){
 		TIM_Cmd(TIM4, ENABLE);
 }
 
-
-typedef struct {
-	uint16_t HALL1;
-	uint16_t HALL2;
-	uint16_t HALL3;
-	uint32_t time;
-} HallSensors;
-
-volatile uint16_t theta;
-volatile uint16_t theta_p = 0;
-volatile float w;
+volatile uint16_t kut_rotora;
+volatile uint16_t kut_rotora_p = 0;
+volatile double w = 0;
+volatile double w_p;
+kut rotor; 
+HallSensors Hall;
 
 void TIM4_IRQHandler(void) {  
 	
-			HallSensors 		Hall;
-		
-			Hall.time = TIM4->CNT;
-			Hall.HALL1 = GPIO_ReadInputDataBit( GPIOB, GPIO_Pin_6);										// cita inpute sa senzora i stavlja ih low ili high state
-			Hall.HALL2 = GPIO_ReadInputDataBit( GPIOB, GPIO_Pin_7);
-			Hall.HALL3 = GPIO_ReadInputDataBit( GPIOB, GPIO_Pin_8);
+					if(rotor.th60 == 0){																											// provjerava jesu li inicijalizirani i kalibrirani kutevi upisani u varijable
+					rotor = GetTheta();
+				}
+				
+				Hall.time = 1/(double)TIM4->CCR1;																						// vrijednost ccr1 registra koji se ovjezi nakon svakog brida
+				Hall.HALL1 = GPIO_ReadInputDataBit( GPIOD, GPIO_Pin_12);										// cita inpute sa senzora i stavlja ih low ili high state
+				Hall.HALL2 = GPIO_ReadInputDataBit( GPIOD, GPIO_Pin_13);										
+				Hall.HALL3 = GPIO_ReadInputDataBit( GPIOD, GPIO_Pin_14);
 	
-			if (TIM_GetITStatus(TIM4, TIM_IT_CC1) != RESET) {      										// provjerava se koji je input izazvao interrupt
-					TIM_ClearITPendingBit(TIM4, TIM_IT_CC1); 															// ciscenje pending zastavice koja oznacava da je izazvan interruupt
-					if (Hall.HALL1 == 1 ){																								// provjerava jel ulaz koji je izazvao prekid u low ili high state
-							theta = 300;
-					}
-					else theta = 120;
-			}		
-			else if (TIM_GetITStatus(TIM4, TIM_IT_CC2) != RESET) { 
-					TIM_ClearITPendingBit(TIM4, TIM_IT_CC2); 
-					if (Hall.HALL2 == 1 ){
-							theta = 60;
-					}
-					else theta = 240;
-			}		
-			else if (TIM_GetITStatus(TIM4, TIM_IT_CC3) != RESET) { 
-					TIM_ClearITPendingBit(TIM4, TIM_IT_CC3); 
-					if (Hall.HALL3 == 1 ){
-							theta = 180;
-					}
-					else theta = 0;
-			}
+	
+				if (Hall.HALL1 == 1 && Hall.HALL2 == 0 && Hall.HALL3 == 1 )									// provjerava jel ulaz koji je izazvao prekid u low ili high state
+						kut_rotora = rotor.th300;
+				else if (Hall.HALL1 == 0 && Hall.HALL2 == 1 && Hall.HALL3 == 0 )
+						kut_rotora = rotor.th120;	
+				else if (Hall.HALL1 == 1 && Hall.HALL2 == 1 && Hall.HALL3 == 0 )
+						kut_rotora = rotor.th60;
+				else if (Hall.HALL1 == 0 && Hall.HALL2 == 0 && Hall.HALL3 == 1 )
+						kut_rotora = rotor.th240;		
+				else if (Hall.HALL1 == 0 && Hall.HALL2 == 1 && Hall.HALL3 == 1 )
+						kut_rotora = rotor.th180;
+				else 
+						kut_rotora = rotor.th0;
+					
 			// racunanje brzine motora
-			if ( theta_p == 300)
-				w = (theta + 360 - theta_p)/Hall.time;
+			if ( kut_rotora_p == 300)
+				w = (kut_rotora + 360 - kut_rotora_p)/Hall.time;													// ispravljanje greške ako je prijelaz sa 300 na 0 da ne dode do krivog racuna
+			else if ( kut_rotora_p == 0 && w_p < 0)																			// ista stvar samo ako motor ide u negativnu stranu
+				w = (kut_rotora - (kut_rotora_p + 360))/Hall.time;
 			else 
-				w = (theta - theta_p)/Hall.time;
-			theta_p  = theta;
-
+				w = (kut_rotora- kut_rotora_p)/Hall.time;
+			kut_rotora_p  = kut_rotora;
+			w_p = w;
 }
 
-float getSpeed(void){
-    return w;																				// vraca izmjerenu brzinu, brzina w je globalna varijabla
+double getSpeed(void){
+    return w;																																			// vraca izmjerenu brzinu, brzina w je globalna varijabla
 }
 
-uint32_t getTime(void){
-    return TIM4->CNT; 															// vraca timer counter izmedu dva brida
+double getTime(void){
+    return Hall.time; 																														// vraca timer counter izmedu dva brida
 }
