@@ -10,7 +10,6 @@
 #include <stm32f4_discovery.h>
 #include <HALL_timer_config.h>
 #include <kalman.h>
-#include <usart.h>
 #include <stdio.h>
 #include <FreeRTOS.h>
 #include <task.h>
@@ -28,6 +27,6 @@ typedef struct {
 void vInit_system(void *pvParameters);
 void vKalibracija(void *pvParameters);
 void vKalmanTask(void *pvParameters);
-kut GetTheta(void);
+void Angle_Calibratet(kut theta);
 
 #endif

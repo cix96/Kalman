@@ -19,10 +19,11 @@ typedef struct {
 					double P[2][2];										// kovarijancijska matrica
 } kalman;
 
-void kalman_init(kalman *p_kalman);																														// funkcija za inicijalizaciju varijabli na pocetku rada
+void kalman_init(void);																														// funkcija za inicijalizaciju varijabli na pocetku rada
 																																															// upisuju se vrijednosti u varijable, angle0 je kut na kojem se
 																																															// rotor nalati u t = 0
-double kalman_angle_calc(kalman *p_kalman, double speed_mea, double dt);											// funkcija za proracun estimacije kuta
+void kalman_predict(double dt);	
+double kalman_update(double speed_mea);																// funkcija za proracun estimacije kuta
 																																															// last_angle je zadnja predvidena vrijednost, speed_mea mjerena
 																																															// brzina, dt je potreban za matricu stanja
 				

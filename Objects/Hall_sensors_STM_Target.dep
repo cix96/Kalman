@@ -1,11 +1,11 @@
 Dependencies for Project 'Hall_sensors_STM', Target 'Target': (DO NOT MODIFY !)
 CompilerVersion: 5060750::V5.06 update 6 (build 750)::ARMCC
-F (.\main.h)(0x5EB55A5B)()
-F (.\kalman.h)(0x5EB3FA4F)()
+F (.\main.h)(0x5EBAB925)()
+F (.\kalman.h)(0x5EBC1392)()
 F (.\usart.h)(0x5EB3FA14)()
-F (.\HALL_timer_config.h)(0x5EB407AA)()
-F (.\main.c)(0x5EB55B56)(--c99 --gnu -c --cpu Cortex-M4.fp.sp -D__EVAL -g -O0 --apcs=interwork --split_sections -I .\ -I Lib\CMSIS\Include -I Lib\CMSIS\Device\ST\STM32F4xx\Include -I Lib\STM32F4xx_StdPeriph_Driver\inc -I FreeRTOS\include -I FreeRTOS\portable\keil\ARM_CM4F-I.\RTE\_Target-IC:\Users\Domagoj\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\Domagoj\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.14.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="529" -D_RTE_ -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -DHSE_VALUE="8000000"-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
-I (.\main.h)(0x5EB55A5B)
+F (.\HALL_timer_config.h)(0x5EB98E81)()
+F (.\main.c)(0x5EBC1392)(--c99 --gnu -c --cpu Cortex-M4.fp.sp -D__EVAL -g -O0 --apcs=interwork --split_sections -I .\ -I Lib\CMSIS\Include -I Lib\CMSIS\Device\ST\STM32F4xx\Include -I Lib\STM32F4xx_StdPeriph_Driver\inc -I FreeRTOS\include -I FreeRTOS\portable\keil\ARM_CM4F-I.\RTE\_Target-IC:\Users\Domagoj\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\Domagoj\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.14.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="529" -D_RTE_ -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -DHSE_VALUE="8000000"-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
+I (.\main.h)(0x5EBAB925)
 I (Lib\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h)(0x582097AB)
 I (Lib\CMSIS\Include\core_cm4.h)(0x581CC64D)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B2678)
@@ -41,11 +41,10 @@ I (Lib\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_dac.h)(0x581CC67B)
 I (Lib\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_dcmi.h)(0x581CC67B)
 I (Lib\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_fsmc.h)(0x581CC67B)
 I (.\stm32f4_discovery.h)(0x4EAA687E)
-I (.\HALL_timer_config.h)(0x5EB407AA)
+I (.\HALL_timer_config.h)(0x5EB98E81)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5D9B267A)
-I (.\kalman.h)(0x5EB3FA4F)
+I (.\kalman.h)(0x5EBC1392)
 I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x5D9B2672)
-I (.\usart.h)(0x5EB3FA14)
 I (FreeRTOS\include\FreeRTOS.h)(0x5E4C7491)
 I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5D9B2678)
 I (FreeRTOS\include\FreeRTOSConfig.h)(0x5E99A5EF)
@@ -58,8 +57,8 @@ I (FreeRTOS\include\task.h)(0x5E4C74C2)
 I (FreeRTOS\include\list.h)(0x5E4C7491)
 I (FreeRTOS\include\semphr.h)(0x5E4C7491)
 I (FreeRTOS\include\queue.h)(0x5E4C7491)
-F (.\HALL_timer_config.c)(0x5EB55A5B)(--c99 --gnu -c --cpu Cortex-M4.fp.sp -D__EVAL -g -O0 --apcs=interwork --split_sections -I .\ -I Lib\CMSIS\Include -I Lib\CMSIS\Device\ST\STM32F4xx\Include -I Lib\STM32F4xx_StdPeriph_Driver\inc -I FreeRTOS\include -I FreeRTOS\portable\keil\ARM_CM4F-I.\RTE\_Target-IC:\Users\Domagoj\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\Domagoj\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.14.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="529" -D_RTE_ -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -DHSE_VALUE="8000000"-o .\objects\hall_timer_config.o --omf_browse .\objects\hall_timer_config.crf --depend .\objects\hall_timer_config.d)
-I (.\HALL_timer_config.h)(0x5EB407AA)
+F (.\HALL_timer_config.c)(0x5EC7A460)(--c99 --gnu -c --cpu Cortex-M4.fp.sp -D__EVAL -g -O0 --apcs=interwork --split_sections -I .\ -I Lib\CMSIS\Include -I Lib\CMSIS\Device\ST\STM32F4xx\Include -I Lib\STM32F4xx_StdPeriph_Driver\inc -I FreeRTOS\include -I FreeRTOS\portable\keil\ARM_CM4F-I.\RTE\_Target-IC:\Users\Domagoj\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\Domagoj\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.14.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="529" -D_RTE_ -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -DHSE_VALUE="8000000"-o .\objects\hall_timer_config.o --omf_browse .\objects\hall_timer_config.crf --depend .\objects\hall_timer_config.d)
+I (.\HALL_timer_config.h)(0x5EB98E81)
 I (Lib\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h)(0x582097AB)
 I (Lib\CMSIS\Include\core_cm4.h)(0x581CC64D)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B2678)
@@ -95,11 +94,10 @@ I (Lib\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_dac.h)(0x581CC67B)
 I (Lib\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_dcmi.h)(0x581CC67B)
 I (Lib\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_fsmc.h)(0x581CC67B)
 I (.\stm32f4_discovery.h)(0x4EAA687E)
-I (.\main.h)(0x5EB55A5B)
-I (.\kalman.h)(0x5EB3FA4F)
+I (.\main.h)(0x5EBAB925)
+I (.\kalman.h)(0x5EBC1392)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5D9B267A)
 I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x5D9B2672)
-I (.\usart.h)(0x5EB3FA14)
 I (FreeRTOS\include\FreeRTOS.h)(0x5E4C7491)
 I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5D9B2678)
 I (FreeRTOS\include\FreeRTOSConfig.h)(0x5E99A5EF)
@@ -112,8 +110,8 @@ I (FreeRTOS\include\task.h)(0x5E4C74C2)
 I (FreeRTOS\include\list.h)(0x5E4C7491)
 I (FreeRTOS\include\semphr.h)(0x5E4C7491)
 I (FreeRTOS\include\queue.h)(0x5E4C7491)
-F (.\kalman.c)(0x5EB168DA)(--c99 --gnu -c --cpu Cortex-M4.fp.sp -D__EVAL -g -O0 --apcs=interwork --split_sections -I .\ -I Lib\CMSIS\Include -I Lib\CMSIS\Device\ST\STM32F4xx\Include -I Lib\STM32F4xx_StdPeriph_Driver\inc -I FreeRTOS\include -I FreeRTOS\portable\keil\ARM_CM4F-I.\RTE\_Target-IC:\Users\Domagoj\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\Domagoj\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.14.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="529" -D_RTE_ -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -DHSE_VALUE="8000000"-o .\objects\kalman.o --omf_browse .\objects\kalman.crf --depend .\objects\kalman.d)
-I (.\kalman.h)(0x5EB3FA4F)
+F (.\kalman.c)(0x5EBC1392)(--c99 --gnu -c --cpu Cortex-M4.fp.sp -D__EVAL -g -O0 --apcs=interwork --split_sections -I .\ -I Lib\CMSIS\Include -I Lib\CMSIS\Device\ST\STM32F4xx\Include -I Lib\STM32F4xx_StdPeriph_Driver\inc -I FreeRTOS\include -I FreeRTOS\portable\keil\ARM_CM4F-I.\RTE\_Target-IC:\Users\Domagoj\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\Domagoj\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.14.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="529" -D_RTE_ -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -DHSE_VALUE="8000000"-o .\objects\kalman.o --omf_browse .\objects\kalman.crf --depend .\objects\kalman.d)
+I (.\kalman.h)(0x5EBC1392)
 I (Lib\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h)(0x582097AB)
 I (Lib\CMSIS\Include\core_cm4.h)(0x581CC64D)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B2678)

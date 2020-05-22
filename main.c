@@ -4,17 +4,15 @@
 
 xSemaphoreHandle  	xBinarySemaphore;				// binarni semafor
 xTaskHandle xTaskHandle1, xTaskHandle2;
-kalman p_kalman;
-kut theta;
 
-double dt;
+kut theta;
+uint16_t fi, fi_p;
+double t, t_p, dt;
 double speed_mea;
 double	angle;		
-char buff1[500];	
 
 int main (void) {
 		
-		USART2_Init();
 		timer4_init();
 		
 		xBinarySemaphore = xSemaphoreCreateBinary(); // create binary sempahore
@@ -31,10 +29,8 @@ int main (void) {
 void vInit_system(void *pvParameters){
 			
 			taskENTER_CRITICAL();
-			kalman_init( &p_kalman);
+			kalman_init();
 			taskEXIT_CRITICAL();
-			sprintf(buff1,"Sustav je inicijaliziran!\n");
-			send_message(buff1);
 			xSemaphoreGive(xBinarySemaphore);
 			vTaskDelete(xTaskHandle2);
 }
@@ -47,14 +43,14 @@ void vKalibracija(void *pvParameters){
 			theta.th180 = 180;
 			theta.th240 = 240;
 			theta.th300 = 300;
-			sprintf(buff1,"Sustav je kalibriran!\n");
-			send_message(buff1);
+	
+		  Angle_Calibratet(theta);
 			
 			vTaskDelete(xTaskHandle1);
 }
 
 void vKalmanTask(void *pvParameters){
-	
+				
 			// Ovaj Task je najveceg prioriteta i traži semafor koji je inicijalno zauzet i ceka ga beskonacno
 			// nakon sto se semafor otpusti od strane taska nižeg prioriteta može pocet racunat kut
 			// tasENTER_CRITICAL i taskEXIT_CRITICAL služe da se onemoguci prekid kada se racunaju ove dvije varijable
@@ -63,22 +59,29 @@ void vKalmanTask(void *pvParameters){
 			// nikad ne bi smjelo doci do i++
 			xSemaphoreTake(xBinarySemaphore, portMAX_DELAY);
 			while(1){
-				if(1/getTime()!= 0){
+				
 				taskENTER_CRITICAL();
-				dt = getTime();
-				speed_mea = getSpeed();
+				t = GetTime();																													// dohvaca vrijednost cnt registra i trenutnog kuta
+				fi = GetKut();
 				taskEXIT_CRITICAL();
-				angle = kalman_angle_calc(&p_kalman,speed_mea,dt);
-				sprintf(buff1,"w = %lf\ntheta = %lf\ndt = %lf\n", speed_mea, angle, dt);
-				send_message(buff1);
+				if( t >= t_p) dt = t- t_p;
+				else dt = 65535 + t - t_p;																							// ako slucajno dolazi do preljeva, odnosno reloada ARR registra pa nadoda cijeli period na to da bi se dobila prava vrijednost
+				dt = (double)dt*(double)3000/42000000;																	// psc*period_izracunati/sys_clock
+				
+				
+				if ( dt != 0){																													// ako je vrijednost dt 0 znaci da nije doslo do prekida
+					if ( (fi_p == 300 || fi_p == 240)&& (fi == 0 || fi == 60))
+							speed_mea = (double)(fi + 360 - fi_p)/dt;													// ispravljanje greške ako je prijelaz sa 300 na 0 da ne dode do krivog racuna
+					else if ( (fi_p == 0 || fi_p == 60) && (fi == 300 || fi == 240))																// ista stvar samo ako motor ide u negativnu stranu
+						speed_mea = (double)(fi - (fi_p + 360))/dt;
+					else 
+						speed_mea = (double)(fi- fi_p)/dt;
 				}
-				else {
-					int i;
-					i++;
+				angle = kalman_update(speed_mea);
+				for(int i = 0; i<3; i++){
+						kalman_predict(dt);
 				}
+				fi_p  = fi;
+				t_p = t;
 			}
-}
-
-kut GetTheta(void){                                      	// prijenos varijable u interrupt
-	return theta;
 }

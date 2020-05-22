@@ -20,7 +20,7 @@ typedef struct {
 
 void timer4_init(void);
 void TIM4_IRQHandler(void);
-double getSpeed(void);
-double getTime(void);
+uint16_t GetKut(void);
+uint32_t GetTime(void);
 
 #endif

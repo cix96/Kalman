@@ -41,7 +41,6 @@
 .\objects\hall_timer_config.o: .\kalman.h
 .\objects\hall_timer_config.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 .\objects\hall_timer_config.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
-.\objects\hall_timer_config.o: .\usart.h
 .\objects\hall_timer_config.o: FreeRTOS\include\FreeRTOS.h
 .\objects\hall_timer_config.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 .\objects\hall_timer_config.o: FreeRTOS\include\FreeRTOSConfig.h
